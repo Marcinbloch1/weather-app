@@ -36,7 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   `${error.status} ${
                     error.statusText === 'OK'
                       ? 'Bad Request: ' + error.error
-                      : error.statusText
+                      : error.statusText + ' ' + error.error
                   }`,
                   'danger-snackbar'
                 )

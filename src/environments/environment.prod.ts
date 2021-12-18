@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
-};
+  production: true,
+  apiUrl: 'https://weather-app-backend20.herokuapp.com/api',
+}

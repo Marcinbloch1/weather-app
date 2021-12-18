@@ -33,9 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.form.value)
     this.authService.loginUser(this.form.value).subscribe((res) => {
-      console.log(res)
       this.toastService.presentToast('Login successful', 'success-snackbar')
       this.router.navigate(['user-page'])
     })

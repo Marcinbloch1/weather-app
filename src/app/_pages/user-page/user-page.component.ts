@@ -58,16 +58,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe((res) => {
       this.user = res
-      console.log('user', this.user)
     })
   }
 
   ngOnInit(): void {}
 
   getAccess() {
-    console.log(this.weatherPassword)
     this.authService.isWeatherValid(this.weatherPassword).subscribe((res) => {
-      console.log(res)
       this.isWeather = true
     })
   }
@@ -76,7 +73,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
     this.weatherService
       .getWeatherByCity(this.user?.city?.latitude, this.user?.city?.longitude)
       .subscribe((res) => {
-        console.log('Pogoda', res)
         this.weatherList = res
         if (this.range.value.end) {
           this.weatherList = this.weatherList.filter(
@@ -86,7 +82,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
           )
         }
 
-        console.log('pogoda', this.weatherList)
         this.dataSource.data = this.weatherList
       })
     this.changeDetectorRef.detectChanges()
@@ -107,7 +102,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        console.log('haloasda')
         this.usersService.deleteAccount().subscribe((res) => {
           this.toastService.presentToast(
             'Account deleted successfuly',

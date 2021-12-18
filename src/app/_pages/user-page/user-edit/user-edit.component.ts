@@ -95,10 +95,8 @@ export class UserEditComponent implements OnInit {
     )
 
     let dataCountry = this.countryInfo.find((x) => x.name == this.user?.country)
-    console.log(dataCountry)
     this.country.setValue(dataCountry)
     let dataCity = this.getCities(dataCountry)
-    console.log('city', dataCity)
     this.city.setValue(
       dataCity.find(
         (x: { name: string | undefined }) => x.name == this.user?.city?.name
@@ -155,6 +153,7 @@ export class UserEditComponent implements OnInit {
         'User updated successfully',
         'success-snackbar'
       )
+      this.form.reset(this.form.value)
       this.router.navigate(['user-page'])
     })
   }
