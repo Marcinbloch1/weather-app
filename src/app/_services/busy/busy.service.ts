@@ -13,7 +13,7 @@ export class BusyService {
     this.busyRequestCount++
     this.spinnerService.show(undefined, {
       type: 'line-scale-pulse-out-rapid',
-      bdColor: 'rgba(0,0,0,0.5)',
+      bdColor: 'rgba(0,0,0,0.0)',
       color: 'white',
       fullScreen: false,
     })
