@@ -1,0 +1,131 @@
+<div id="print-section">
+  <ng-container *ngIf="user && user.city">
+    <mat-card class="user-card">
+      <mat-card-title>{{ user.firstname }} {{ user.lastname }}</mat-card-title>
+      <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+      <mat-card-content>
+        <p class="subtext">{{ user.country }}</p>
+        <p class="subtext">{{ user.city.name }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-button
+          printSectionId="print-section"
+          [useExistingCss]="true"
+          ngxPrint
+        >
+          <mat-icon>print</mat-icon>
+        </button>
+        <a mat-button color="accent" routerLink="user-edit">EDIT</a>
+        <button mat-button (click)="deleteAccount()" color="warn">
+          DELETE
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <ng-container *ngIf="isWeather; else weatherList">
+      <mat-card class="user-card">
+        <mat-card-title style="margin-bottom: 20px"
+          >Choose date:
+        </mat-card-title>
+
+        <mat-card-content>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input
+              [formGroup]="range"
+              [rangePicker]="picker"
+              [min]="todayDate"
+            >
+              <input
+                matStartDate
+                formControlName="start"
+                placeholder="Start date"
+              />
+              <input matEndDate formControlName="end" placeholder="End date" />
+            </mat-date-range-input>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button type="submit" (click)="showWeather()">SHOW</button>
+        </mat-card-actions>
+      </mat-card>
+      <br />
+
+      <mat-card class="example-card" *ngFor="let forecast of weather$ | async">
+        <mat-card-header>
+          <mat-card-title>{{ user.city.name }}</mat-card-title>
+          <mat-card-subtitle>{{
+            forecast.time | date: 'EEEE, MMMM d, y, h:mm a'
+          }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="flex-row">
+            <div class="temperature">
+              <span class="big-text"
+                >{{ forecast.data.instant.details.air_temperature }} C</span
+              >
+              <span>Humidity </span>
+              <span
+                >{{ forecast.data.instant.details.relative_humidity }} %</span
+              >
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+    <ng-template #weatherList>
+      <mat-card class="user-card">
+        <mat-card-title style="margin-bottom: 20px"
+          >Type password</mat-card-title
+        >
+        <mat-card-content>
+          <form #myForm="ngForm" (ngSubmit)="getAccess()">
+            <mat-form-field appearance="fill">
+              <mat-label>Enter your password</mat-label>
+              <input
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                [(ngModel)]="weatherPassword"
+                [ngModelOptions]="{ standalone: true }"
+                name="weatherPassword"
+                required
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-button
+            (click)="getAccess()"
+            type="submit"
+            [disabled]="!weatherPassword"
+          >
+            UNLOCK
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-template>
+  </ng-container>
+</div>
+<mat-paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  class="pagination"
+></mat-paginator>

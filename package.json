@@ -11,14 +11,25 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.2",
+    "@angular/cdk": "^12.2.13",
     "@angular/common": "~12.0.2",
     "@angular/compiler": "~12.0.2",
     "@angular/core": "~12.0.2",
     "@angular/forms": "~12.0.2",
+    "@angular/material": "^12.2.13",
+    "@angular/material-moment-adapter": "^13.1.1",
     "@angular/platform-browser": "~12.0.2",
     "@angular/platform-browser-dynamic": "~12.0.2",
     "@angular/router": "~12.0.2",
+    "@types/moment": "^2.13.0",
+    "country-state-city": "^3.0.1",
+    "generate-password": "^1.7.0",
+    "moment": "^2.29.1",
+    "ngx-print": "^1.2.1",
+    "ngx-spinner": "^12.0.0",
+    "ngx-toastr": "^14.2.1",
     "rxjs": "~6.6.0",
+    "ts-password-generator": "^1.0.6",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
   },
@@ -35,5 +46,8 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "typescript": "~4.2.3"
+  },
+  "browser": {
+    "crypto": false
   }
 }

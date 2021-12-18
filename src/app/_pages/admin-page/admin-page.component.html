@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="welcome">Assign weather password</div>
+  <div class="form-container">
+    <form [formGroup]="form" (ngSubmit)="submitWeatherPassword()">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Choose user</mat-label>
+        <mat-select formControlName="email" required>
+          <mat-option *ngFor="let user of users$ | async" [value]="user">
+            {{ user }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="email.hasError('required')"
+          >Please choose an user</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Enter password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="Password"
+          formControlName="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.hasError('required')"
+          >Please type password</mat-error
+        >
+      </mat-form-field>
+      <button
+        mat-flat-button
+        class="submit-btn"
+        type="submit"
+        color="primary"
+        [disabled]="!form.valid"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

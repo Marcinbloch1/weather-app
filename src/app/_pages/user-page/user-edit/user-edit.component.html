@@ -1,0 +1,160 @@
+<div class="container">
+  <div class="welcome">Edit your data</div>
+  <div class="form-container">
+    <mat-card class="edit-info" *ngIf="form.dirty"
+      >Any unsaved data will be lost!</mat-card
+    >
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Enter Firstname</mat-label>
+        <input
+          matInput
+          placeholder="Firstname"
+          formControlName="firstName"
+          required
+        />
+        <mat-error *ngIf="firstName.hasError('required')"
+          >Please enter your firstname</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Enter Lastname</mat-label>
+        <input
+          matInput
+          placeholder="Lastname"
+          formControlName="lastName"
+          required
+        />
+        <mat-error *ngIf="lastName.hasError('required')"
+          >Please enter your lastname</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Enter e-mail</mat-label>
+        <input
+          matInput
+          placeholder="pat@example.com"
+          formControlName="email"
+          required
+        />
+
+        <mat-error *ngIf="email.invalid">{{ getEmail() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width select-auto" appearance="fill">
+        <mat-label>Country</mat-label>
+        <input
+          type="text"
+          placeholder="Type country"
+          aria-label="Country"
+          matInput
+          required
+          formControlName="country"
+          [matAutocomplete]="auto1"
+        />
+        <mat-autocomplete
+          [displayWith]="checkValue"
+          autoActiveFirstOption
+          #auto1="matAutocomplete"
+          (optionSelected)="getCities($event.option.value)"
+        >
+          <mat-option
+            *ngFor="let option of filteredCountryOptions$ | async"
+            [value]="option"
+          >
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="country.hasError('required')"
+          >Select your country</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="example-full-width select-auto" appearance="fill">
+        <mat-label>City</mat-label>
+        <input
+          type="text"
+          placeholder="Type city"
+          aria-label="City"
+          matInput
+          required
+          [formControl]="city"
+          [matAutocomplete]="auto2"
+        />
+        <mat-autocomplete
+          autoActiveFirstOption
+          #auto2="matAutocomplete"
+          [displayWith]="checkValue"
+        >
+          <mat-option
+            *ngFor="let city of filteredCityOptions$ | async"
+            [value]="city"
+          >
+            {{ city.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="city.hasError('required')"
+          >Select your city</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Enter old password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="Password"
+          formControlName="oldPassword"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="oldPassword.hasError('required')"
+          >Enter your old password</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Enter new password</mat-label>
+        <input
+          matInput
+          [type]="hide2 ? 'password' : 'text'"
+          placeholder="Password"
+          formControlName="newPassword"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="generatePassword()"
+        >
+          <mat-icon>vpn_key</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide2 = !hide2"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide2"
+        >
+          <mat-icon>{{ hide2 ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="newPassword.invalid">{{ getPassword() }}</mat-error>
+      </mat-form-field>
+      <button
+        mat-flat-button
+        class="submit-btn"
+        type="submit"
+        color="primary"
+        [disabled]="!form.valid && !form.dirty"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

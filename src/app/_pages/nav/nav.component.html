@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <a mat-icon-button routerLink="/home" class="example-icon">
+    <mat-icon>home</mat-icon>
+  </a>
+  <a routerLink="/home" style="text-decoration: none; color: #fff"
+    >Weather app</a
+  >
+  <span class="example-spacer"></span>
+
+  <ng-container *ngIf="authService.currentUser$ | async; else loggedOut">
+    <a
+      mat-flat-button
+      *appHasRole="'Admin'"
+      routerLink="/admin-page"
+      class="btn-spacer"
+      >Admin page</a
+    >
+    <a mat-flat-button routerLink="/user-page" class="btn-spacer">User page</a>
+    <a mat-flat-button (click)="logout()" class="btn-spacer">Logout</a>
+  </ng-container>
+  <ng-template #loggedOut>
+    <a mat-flat-button routerLink="/login">Login</a>
+  </ng-template>
+</mat-toolbar>

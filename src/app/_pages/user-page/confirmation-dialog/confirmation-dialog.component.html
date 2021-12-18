@@ -1,0 +1,13 @@
+<mat-dialog-content>
+  <p>
+    {{ message }}
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close tabindex="-1">
+    {{ cancelButtonText }}
+  </button>
+  <button mat-button color="warn" (click)="onConfirmClick()" tabindex="1">
+    {{ confirmButtonText }}
+  </button>
+</mat-dialog-actions>
