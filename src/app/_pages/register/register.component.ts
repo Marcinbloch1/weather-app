@@ -9,7 +9,10 @@ import { AuthService } from 'src/app/_services/auth/auth.service'
 import { Router } from '@angular/router'
 import { ToastService } from 'src/app/_services/toast/toast.service'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
-import { matchValidator } from 'src/app/validators/form-validators'
+import {
+  matchValidator,
+  RequireMatch,
+} from 'src/app/validators/form-validators'
 
 @Component({
   selector: 'app-register',
@@ -28,8 +31,8 @@ export class RegisterComponent implements OnInit {
   hide = true
   hide2 = true
 
-  country = new FormControl('', [Validators.required])
-  city = new FormControl('', [Validators.required])
+  country = new FormControl('', [Validators.required, RequireMatch])
+  city = new FormControl('', [Validators.required, RequireMatch])
   firstName = new FormControl('', [Validators.required])
   lastName = new FormControl('', [Validators.required])
   email = new FormControl('', [Validators.required, Validators.email])

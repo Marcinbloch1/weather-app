@@ -6,6 +6,7 @@ import { Country, City } from 'country-state-city'
 import { ICountry } from 'country-state-city/dist/lib/interface'
 import { Observable, Subscription } from 'rxjs'
 import { startWith, map, take } from 'rxjs/operators'
+import { RequireMatch } from 'src/app/validators/form-validators'
 import { User } from 'src/app/_models/user'
 import { AuthService } from 'src/app/_services/auth/auth.service'
 import { ToastService } from 'src/app/_services/toast/toast.service'
@@ -38,8 +39,8 @@ export class UserEditComponent implements OnInit {
 
   user!: User | null
 
-  country = new FormControl('', [Validators.required])
-  city = new FormControl('', [Validators.required])
+  country = new FormControl('', [Validators.required, RequireMatch])
+  city = new FormControl('', [Validators.required, RequireMatch])
   firstName!: FormControl
   lastName!: FormControl
   email!: FormControl
